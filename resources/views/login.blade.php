@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
     <title>Login akun</title>
     <link rel="stylesheet" href="{{ asset('bootstrap/css/bootstrap.css')}}">
 </head>
+
 <body>
 
     <div class="text-center mt-4">
@@ -24,10 +26,13 @@
                             <label>Password</label>
                             <input type="password" name="password" class="form-control mb-2">
                             <button class="btn btn-primary">Submit Login</button>
+
                         </form>
+
                         @if(session('gagal'))
                         <p class="text-danger">{{ session('gagal') }}</p>
                         @endif
+
                     </div>
                 </div>
             </div>
@@ -36,4 +41,5 @@
 
 
 </body>
+
 </html>

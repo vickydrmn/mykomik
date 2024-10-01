@@ -1,17 +1,20 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class AuthController extends Controller
 {
-    function tampilRegistrasi(){
+    function tampilRegistrasi()
+    {
         return view('registrasi');
     }
 
-    function submitRegistrasi(Request $request){
+    function submitRegistrasi(Request $request)
+    {
         $user = new User();
         $user->name = $request->name;
         $user->email = $request->email;
@@ -21,22 +24,25 @@ class AuthController extends Controller
         return redirect()->route('login');
     }
 
-    function tampilLogin() {
+    function tampilLogin()
+    {
         return view('login');
     }
 
-    function submitLogin(Request $request){
+    function submitLogin(Request $request)
+    {
         $data = $request->only('email', 'password');
 
-        if (Auth::attempt($data)){
+        if (Auth::attempt($data)) {
             $request->session()->regenerate();
             return redirect()->route('komik.tampil');
-        }else{
+        } else {
             return redirect()->back()->with('gagal', 'Email atau Password salah');
         }
     }
 
-    function logout(){
+    function logout()
+    {
         Auth::logout();
         return redirect()->route('login');
     }

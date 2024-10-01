@@ -7,18 +7,30 @@ use Illuminate\Http\Request;
 
 class KomikController extends Controller
 {
-    function tampil() {
-        $komik = Komik::get();
+    function tampil(Request $request)
+    {
+        $search = $request->input('search');
+        $komik = Komik::query();
+
+        if ($search) {
+            $komik->where('nama', 'like', '%' . $search . '%');
+        }
+
+        $komik = $komik->get();
+
         return view('komik.tampil', compact('komik'));
     }
 
-    function tambah() {
+    function tambah()
+    {
         return view('komik.tambah');
     }
 
-    function submit(Request $request){
+    function submit(Request $request)
+    {
         $komik = new Komik();
         $komik->no = $request->no;
+        $komik->gambar = $request->gambar;
         $komik->nama = $request->nama;
         $komik->genre = $request->genre;
         $komik->tanggal_update = $request->tanggal_update;
@@ -29,14 +41,17 @@ class KomikController extends Controller
         return redirect()->route('komik.tampil');
     }
 
-    function edit($id){
+    function edit($id)
+    {
         $komik = Komik::find($id);
         return view('komik.edit', compact('komik'));
     }
 
-    function update(Request $request, $id){
+    function update(Request $request, $id)
+    {
         $komik = Komik::find($id);
         $komik->no = $request->no;
+        $komik->gambar = $request->gambar;
         $komik->nama = $request->nama;
         $komik->genre = $request->genre;
         $komik->tanggal_update = $request->tanggal_update;
@@ -47,7 +62,8 @@ class KomikController extends Controller
         return redirect()->route('komik.tampil');
     }
 
-    function delete($id){
+    function delete($id)
+    {
         $komik = Komik::find($id);
         $komik->delete();
         return redirect()->route('komik.tampil');

@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('komik', function (Blueprint $table) {
             $table->id();
             $table->integer('no');
+            $table->string('gambar')->nullable();;
             $table->string('nama');
             $table->string('genre');
             $table->string('tanggal_update');
